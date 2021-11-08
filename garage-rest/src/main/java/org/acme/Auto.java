@@ -2,7 +2,7 @@ package org.acme;
 
 import com.google.gson.Gson;
 
-//UEEEE
+//UEEEE v2
 public class Auto {
 
 	private String colore;
