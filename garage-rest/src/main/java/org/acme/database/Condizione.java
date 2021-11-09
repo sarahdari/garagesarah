@@ -32,7 +32,7 @@ public class Condizione {
 
 	@Override
 	public String toString() {
-		return "Condizione, campo: " + campo + ", parametri: " + parametri.toString + ".";
+		return "Condizione, campo: " + campo + ", parametri: " + parametri.toString() + ".";
 	}
 
 }
