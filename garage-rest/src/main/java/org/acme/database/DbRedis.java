@@ -255,21 +255,21 @@ public class DbRedis implements DBInterface {
 	}
 
 	//DA CONTROLLARE
+	
 	@Override
 	public List<Auto> getGarage() {
 		List<Auto> lista = new ArrayList<Auto>();
 		Response response = redisClient.keys("*");
 		for(Response r: response){
-			lista.add(redisClient.get(r));
+			//lista.add(redisClient.get(r));   ERRORE QUI
 		}
 		return lista;
 	}
 
 	// verifica se un'auto è contenuta nel garage
-	@Override
+	
 	public Boolean contiene(Auto auto) {
 		return garage.getGarage().contains(auto);
-
 	}
 
 
