@@ -213,8 +213,6 @@ public class DbRedis implements DBInterface {
 		return null; 
 	}
 
-
-
 	// ricerca generico 
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
@@ -243,6 +241,7 @@ public class DbRedis implements DBInterface {
 		LOGGER.debug(risRicerca);
 		return risRicerca;
 	}
+  
 	// sostituisce un'auto nel garage con un'auto nuova
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
@@ -255,14 +254,15 @@ public class DbRedis implements DBInterface {
 		}
 	}
 
-	//DA RIFARE
+	//DA CONTROLLARE
 	@Override
 	public List<Auto> getGarage() {
-
-
-
-		return null;
-
+		List<Auto> lista = new ArrayList<Auto>();
+		Response response = redisClient.keys("*");
+		for(Response r: response){
+			lista.add(redisClient.get(r));
+		}
+		return lista;
 	}
 
 	// verifica se un'auto è contenuta nel garage
