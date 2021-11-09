@@ -9,19 +9,21 @@ import org.acme.DBInterface;
 public class DBList implements DBInterface{
 
 	private List <Auto> garage = new ArrayList<Auto>();
+	//singleton
 	private final static DBList INSTANCE = new DBList();
 
 	private DBList() {}
-
+	
+	//ritorna l'unica istanza del DbList
 	public static DBList getInstance() {
 		return INSTANCE;
 	}
-
+	//ritorna l'intero garage
 	@Override
 	public List<Auto> getGarage() {
 		return garage;
 	}
-
+	//mostra l'auto sezionata tramite id
 	@Override
 	public Auto getAuto(int id) {
 		for(Auto auto:garage) {
@@ -31,7 +33,7 @@ public class DBList implements DBInterface{
 		}
 		return null;
 	}
-
+	//ricerca delle auto tramite un colore
 	@Override
 	public List<Auto> cercaColore(String colore) {
 		List<Auto> risultatoRicerca = new ArrayList<Auto>();
@@ -42,14 +44,15 @@ public class DBList implements DBInterface{
 		}
 		return risultatoRicerca;
 	}
-
+	//aggiunge una nuova auto al garage
 	@Override
 	public void aggiungiAuto(Auto auto) {
 		if(!auto.equals(null)) {
 			garage.add(auto);
 		}
 	}
-
+	
+	//sostituisce un'auto contenuta nel garage con una nuova auto
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
 		for(int i=0; i<garage.size(); i++) {
@@ -59,13 +62,13 @@ public class DBList implements DBInterface{
 		}
 	}
 
-
+	//elimina un'auto contenuta nel garage
 	@Override
 	public void eliminaAuto(int id) {
 		garage.remove(INSTANCE.getAuto(id));
 
 	}
-
+	//ricerca delle auto su un singolo campo 
 	public List<Auto> ricercaSingoloCampo (Condizione condizione) {
 		String campo = condizione.getCampo();
 		List<String> parametri = condizione.getParametri();
@@ -115,7 +118,7 @@ public class DBList implements DBInterface{
 
 
 
-
+	//ricerca generica delle auto tramite uno o più parametri (o condizioni)
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
 		List<Auto> risRicerca = new ArrayList<Auto>();
@@ -136,7 +139,7 @@ public class DBList implements DBInterface{
 		return risRicerca;
 
 	}
-
+	// verifica se un'auto è contenuta nel garage
 	@Override
 	public Boolean contiene(Auto auto){
 		return garage.contains(auto);

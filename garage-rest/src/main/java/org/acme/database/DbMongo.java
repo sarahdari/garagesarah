@@ -29,7 +29,7 @@ public class DbMongo implements DBInterface {
 
 	private Logger LOGGER = Logger.getLogger(DbMongo.class);
 
-
+	//mostra tutto il garage
 	@Override
 	public List<Auto> getGarage() {
 		LOGGER.info("mostra tutte le auto contenute nel garage");
@@ -52,7 +52,7 @@ public class DbMongo implements DBInterface {
 		LOGGER.debug(list);
 		return list;
 	}
-
+	//aggiunge un auto al garage
 	@Override
 	public void aggiungiAuto(Auto auto) {
 		LOGGER.info("aggiunge un'auto al garage: " + auto);
@@ -78,7 +78,7 @@ public class DbMongo implements DBInterface {
 		LOGGER.debug(mongoClient.getDatabase("garage").getCollection("garage"));
 		return mongoClient.getDatabase("garage").getCollection("garage");
 	}
-
+	// recupera un'auto tramite l'id
 	@Override
 	public Auto getAuto(int id) {
 		LOGGER.info("mostra l'auto con id: " + id);
@@ -88,7 +88,7 @@ public class DbMongo implements DBInterface {
 		LOGGER.debug(auto);
 		return auto;
 	}
-
+	//ricerca delle auto tramite un colore
 	@Override
 	public List<Auto> cercaColore(String colore) {
 		LOGGER.info("ricerca l'auto per colore: " + colore);
@@ -105,7 +105,7 @@ public class DbMongo implements DBInterface {
 		LOGGER.debug(lista);
 		return lista; 
 	}
-
+	//modifica il garage sostituendo un'auto contenuta nel db con un'auto nuova
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
 		LOGGER.info("sostituisce un'auto già presente nel garage con l'auto nuova: " + auto);
@@ -120,24 +120,24 @@ public class DbMongo implements DBInterface {
 		mongoClient.getDatabase("garage").getCollection("garage").replaceOne(filtro, document);
 		LOGGER.debug(mongoClient.getDatabase("garage").getCollection("garage").replaceOne(filtro, document));
 	}
-
+	// elimina un'auto contenuta nel garage tramite l'id
 	@Override
 	public void eliminaAuto(int id) {
-		LOGGER.info("elimina un auto tramite l'id: " + id);
+		LOGGER.info("elimina un'auto tramite l'id: " + id);
 		Auto auto = new Auto ("bianco","a1","audi");
 		Gson gson = new Gson();		
 		String json= mongoClient.getDatabase("garage").getCollection("garage").deleteOne(new Document ("id",id)).toString();
 		json = gson.toJson(auto);
 		auto = gson.fromJson(json, Auto.class); 
 	}
-
+	//verifica che un'auto sia contenuta o meno nel garage
 	public boolean contains(Auto auto2) {
 		LOGGER.info("verifica se un auto è contenuta nel garage");
 		Document doc = mongoClient.getDatabase("garage").getCollection("garage")
 				.find(new Document("id", auto2.getId())).first();
 		return (doc != null);
 	}
-
+	//ricerca tramite una serie di parametri (o condizioni)
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
 		LOGGER.info("ricerca delle auto secondo le condizioni: " + condizioni);
@@ -180,7 +180,7 @@ public class DbMongo implements DBInterface {
 
 		return lista;
 	}
-
+	//verifica se un'auto è contenuta nel garage
 	@Override
 	public Boolean contiene(Auto auto){
 		Document doc = mongoClient.getDatabase("garage").getCollection("garage").find(new Document("id", auto.getId())).first();
