@@ -71,6 +71,7 @@ public class DbRedis implements DBInterface {
 	public void eliminaAuto(int id) {
 		redisClient.del(Arrays.asList(auto.getId().toString(), auto.toString()));
 	}
+	
 	//cerca auto tramite un colore
 	@Override
 	public List<Auto> cercaColore(String colore) {
