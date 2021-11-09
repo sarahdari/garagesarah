@@ -103,42 +103,7 @@ public class GarageResource {
     	return garage.ricerca(condizioni);
     	
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
    
-
    /* @PUT
     @Path("/auto/{id}/{colore}")
     public void cambiaColoreAuto(@PathParam("id") Integer id, @PathParam("colore") String colore){
