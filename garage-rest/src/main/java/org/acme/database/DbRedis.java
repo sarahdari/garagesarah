@@ -47,18 +47,32 @@ public class DbRedis implements DBInterface {
 
 	}
 
-
+	//aggiunge un'auto al garage
 	@Override
 	public void aggiungiAuto(Auto auto) {
-		redisClient.set(Arrays.asList(auto.getId().toString(), auto.toString()));
+		try{
+			Response res = redisClient.keys("*");
+			//autoincrementazione id
+			int id = 1;
+			if(res.size()>0){
+				id=res.size()+1;
+			}
+			auto.setId(id);
+			String json = gson.toJson(auto);
+			redisClient.set(Arrays.asList(id+"",json));
+		}
+		catch(Exception e){
+			LOGGER.error(e);
+		}
 	}
 
-
+	//elimina un'auto dal garage, tramite l'id
 	@Override
 	public void eliminaAuto(int id) {
 		redisClient.del(Arrays.asList(auto.getId().toString(), auto.toString()));
 	}
-
+	
+	//cerca auto tramite un colore
 	@Override
 	public List<Auto> cercaColore(String colore) {
 		LOGGER.info("ricerca dell'auto per colore: " +  colore);
@@ -89,7 +103,7 @@ public class DbRedis implements DBInterface {
 		
 	}
 
-
+	//cerca l'auto tramite uno o più colori
 	public List<Auto> cercaColori (List<String> colori) {
 		LOGGER.info("ricerca dell'auto per colori: " +  colori);
 		Response chiavi = redisClient.keys("*");
@@ -118,7 +132,7 @@ public class DbRedis implements DBInterface {
 		LOGGER.debug(risRicerca);
 		return risRicerca;
 	}
-
+	// cerca auto tramite uno o più modelli 
 	public List<Auto> cercaModelli (List<String> modelli) {
 		LOGGER.info("ricerca dell'auto per modelli: " +  modelli);
 		Response chiavi = redisClient.keys("*");
@@ -148,7 +162,7 @@ public class DbRedis implements DBInterface {
 		return risRicerca;
 	}
 
-
+	// cerca auto tramite una o più marche
 	public List<Auto> cercaMarche (List<String> marche) {
 		LOGGER.info("ricerca dell'auto per marche: " +  marche);
 		Response chiavi = redisClient.keys("*");
@@ -178,7 +192,7 @@ public class DbRedis implements DBInterface {
 		return risRicerca;
 	}
 
-
+	//ricerca su un singolo campo
 	public List<Auto> cercaSingoloCampo (List<String> ricerca, String campo) {
 		LOGGER.info("ricerca secondo i parametri: " + ricerca + ", sul campo: " + campo);
 		if (campo.equalsIgnoreCase("colore")) {
@@ -199,6 +213,7 @@ public class DbRedis implements DBInterface {
 		return null; 
 	}
 
+	// ricerca generico 
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
 		LOGGER.info("ricerca delle auto secondi i paramentri: " + condizioni);
@@ -226,7 +241,8 @@ public class DbRedis implements DBInterface {
 		LOGGER.debug(risRicerca);
 		return risRicerca;
 	}
-
+  
+	// sostituisce un'auto nel garage con un'auto nuova
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
 		Response chiavi = redisClient.keys("*");
@@ -249,7 +265,7 @@ public class DbRedis implements DBInterface {
 		return lista;
 	}
 
-
+	// verifica se un'auto è contenuta nel garage
 	@Override
 	public Boolean contiene(Auto auto) {
 		return garage.getGarage().contains(auto);
