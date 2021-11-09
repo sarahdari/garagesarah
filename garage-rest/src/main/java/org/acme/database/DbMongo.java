@@ -21,10 +21,6 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 
 
-//ook e e e e e 
-
-
-
 @ApplicationScoped
 public class DbMongo implements DBInterface {
 
@@ -36,7 +32,6 @@ public class DbMongo implements DBInterface {
 
 
 	private Logger LOGGER = Logger.getLogger(DbMongo.class);
-
 
 
 	@Override
@@ -117,8 +112,6 @@ public class DbMongo implements DBInterface {
 		}
 		LOGGER.debug(lista);
 		return lista; 
-
-
 	}
 
 
@@ -201,6 +194,12 @@ public class DbMongo implements DBInterface {
 		}
 
 		return lista;
+	}
+
+	@Override
+	public Boolean contiene(Auto auto){
+		Document doc = mongoClient.getDatabase("garage").getCollection("garage").find(new Document("id", auto.getId())).first();
+		return (doc != null);
 	}
 
 }

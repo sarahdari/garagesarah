@@ -84,6 +84,12 @@ public class DBHashMap implements DBInterface {
 		return null;
 	}
 
+    //nuovo metodo contiene
+    @Override
+    public Boolean contiene(Auto auto){
+        return garage.containsValue(auto);
+    }
+
 	
 }
 

@@ -20,4 +20,6 @@ public interface DBInterface {
 	
 	List<Auto> ricerca(List<Condizione> condizioni);
 
+	Boolean contiene(Auto auto);
+
 }
