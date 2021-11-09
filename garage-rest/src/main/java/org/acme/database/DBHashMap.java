@@ -15,8 +15,6 @@ public class DBHashMap implements DBInterface {
 
     private final static DBHashMap INSTANCE = new DBHashMap();
     
-    
-
     private DBHashMap() {
     }
 
@@ -85,6 +83,12 @@ public class DBHashMap implements DBInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    //nuovo metodo contiene
+    @Override
+    public Boolean contiene(Auto auto){
+        return garage.containsValue(auto);
+    }
 
 	
 }

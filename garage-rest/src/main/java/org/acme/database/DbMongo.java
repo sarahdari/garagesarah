@@ -21,22 +21,13 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 
 
-//ook e e e e e 
-
-
-
 @ApplicationScoped
 public class DbMongo implements DBInterface {
-
-	//
-
-	@Inject MongoClient mongoClient;
-
-	//DbMongo garage;
-
+	
+	@Inject 
+	MongoClient mongoClient;
 
 	private Logger LOGGER = Logger.getLogger(DbMongo.class);
-
 
 
 	@Override
@@ -88,8 +79,6 @@ public class DbMongo implements DBInterface {
 		return mongoClient.getDatabase("garage").getCollection("garage");
 	}
 
-
-
 	@Override
 	public Auto getAuto(int id) {
 		LOGGER.info("mostra l'auto con id: " + id);
@@ -112,16 +101,10 @@ public class DbMongo implements DBInterface {
 		for (Document auto : list) {
 			json = auto.toJson();
 			lista.add(gson.fromJson(json, Auto.class));
-
-
 		}
 		LOGGER.debug(lista);
 		return lista; 
-
-
 	}
-
-
 
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
@@ -138,8 +121,6 @@ public class DbMongo implements DBInterface {
 		LOGGER.debug(mongoClient.getDatabase("garage").getCollection("garage").replaceOne(filtro, document));
 	}
 
-
-
 	@Override
 	public void eliminaAuto(int id) {
 		LOGGER.info("elimina un auto tramite l'id: " + id);
@@ -150,16 +131,12 @@ public class DbMongo implements DBInterface {
 		auto = gson.fromJson(json, Auto.class); 
 	}
 
-
 	public boolean contains(Auto auto2) {
 		LOGGER.info("verifica se un auto è contenuta nel garage");
 		Document doc = mongoClient.getDatabase("garage").getCollection("garage")
 				.find(new Document("id", auto2.getId())).first();
 		return (doc != null);
 	}
-
-
-
 
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
@@ -175,11 +152,12 @@ public class DbMongo implements DBInterface {
 				Bson filtro = Filters.eq(condizione.getCampo(),parametro);
 				listaFiltriOr.add(filtro);
 			}
-
-			LOGGER.info(listaFiltriOr.toString());
+			LOGGER.info("Lista filtri Or");
+			LOGGER.debug(listaFiltriOr.toString());
 
 			Bson filtroOr = Filters.or(listaFiltriOr);
 			listaFiltriAnd.add(filtroOr);
+			LOGGER.info("Lista filtri And");
 			LOGGER.debug(listaFiltriAnd);
 		}
 
@@ -201,6 +179,12 @@ public class DbMongo implements DBInterface {
 		}
 
 		return lista;
+	}
+
+	@Override
+	public Boolean contiene(Auto auto){
+		Document doc = mongoClient.getDatabase("garage").getCollection("garage").find(new Document("id", auto.getId())).first();
+		return (doc != null);
 	}
 
 }

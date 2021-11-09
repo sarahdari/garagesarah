@@ -51,7 +51,6 @@ public class DBList implements DBInterface{
 	}
 
 	@Override
-
 	public void modificaGarage(int chiave, Auto auto) {
 		for(int i=0; i<garage.size(); i++) {
 			if(garage.get(i).getId() == chiave) {
@@ -136,6 +135,11 @@ public class DBList implements DBInterface{
 		}
 		return risRicerca;
 
+	}
+
+	@Override
+	public Boolean contiene(Auto auto){
+		return garage.contains(auto);
 	}
 
 

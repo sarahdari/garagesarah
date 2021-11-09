@@ -57,8 +57,6 @@ public class DbRedis implements DBInterface {
 	@Override
 	public void eliminaAuto(int id) {
 		redisClient.del(Arrays.asList(auto.getId().toString(), auto.toString()));
-
-
 	}
 
 	@Override
@@ -231,11 +229,6 @@ public class DbRedis implements DBInterface {
 		LOGGER.debug(risRicerca);
 		return risRicerca;
 	}
-	
-	
-	
-	
-	
 
 	@Override
 	public void modificaGarage(int chiave, Auto auto) {
@@ -248,7 +241,7 @@ public class DbRedis implements DBInterface {
 		}
 	}
 
-
+	//DA RIFARE
 	@Override
 	public List<Auto> getGarage() {
 
@@ -259,8 +252,9 @@ public class DbRedis implements DBInterface {
 	}
 
 
-	public boolean contains(Auto auto2) {
-		return garage.getGarage().contains(auto2);
+	@Override
+	public Boolean contiene(Auto auto) {
+		return garage.getGarage().contains(auto);
 
 	}
 

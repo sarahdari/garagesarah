@@ -7,7 +7,6 @@ public class Condizione {
 	private String campo;
 	private List<String> parametri;
 	
-	
 	public Condizione() {};
 	
 	public Condizione( String campo, List<String> parametri) {
@@ -33,8 +32,7 @@ public class Condizione {
 
 	@Override
 	public String toString() {
-		return "Condizione [campo=" + campo + ", parametri=" + parametri + "]";
+		return "Condizione, campo: " + campo + ", parametri: " + parametri.toString + ".";
 	}
-	
-	
+
 }
