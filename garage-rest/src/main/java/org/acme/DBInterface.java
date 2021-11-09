@@ -16,7 +16,6 @@ public interface DBInterface {
 
 	void modificaGarage(int chiave, Auto auto);
 
-
 	void eliminaAuto(int id);
 	
 	List<Auto> ricerca(List<Condizione> condizioni);
