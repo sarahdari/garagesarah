@@ -57,8 +57,6 @@ public class DbRedis implements DBInterface {
 	@Override
 	public void eliminaAuto(int id) {
 		redisClient.del(Arrays.asList(auto.getId().toString(), auto.toString()));
-
-
 	}
 
 	@Override
