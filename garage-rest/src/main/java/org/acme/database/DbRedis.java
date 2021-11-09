@@ -199,9 +199,6 @@ public class DbRedis implements DBInterface {
 		return null; 
 	}
 
-
-
-
 	@Override
 	public List<Auto> ricerca(List<Condizione> condizioni) {
 		LOGGER.info("ricerca delle auto secondi i paramentri: " + condizioni);
@@ -241,14 +238,15 @@ public class DbRedis implements DBInterface {
 		}
 	}
 
-	//DA RIFARE
+	//DA CONTROLLARE
 	@Override
 	public List<Auto> getGarage() {
-
-
-
-		return null;
-
+		List<Auto> lista = new ArrayList<Auto>();
+		Response response = redisClient.keys("*");
+		for(Response r: response){
+			lista.add(redisClient.get(r));
+		}
+		return lista;
 	}
 
 
