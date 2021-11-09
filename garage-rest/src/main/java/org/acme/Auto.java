@@ -3,6 +3,7 @@ package org.acme;
 import com.google.gson.Gson;
 
 //V3
+//Classe Auto
 public class Auto {
 
 	private String colore;
