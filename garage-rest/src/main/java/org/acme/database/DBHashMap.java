@@ -15,8 +15,6 @@ public class DBHashMap implements DBInterface {
 
     private final static DBHashMap INSTANCE = new DBHashMap();
     
-    
-
     private DBHashMap() {
     }
 
