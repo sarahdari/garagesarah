@@ -50,7 +50,20 @@ public class DbRedis implements DBInterface {
 
 	@Override
 	public void aggiungiAuto(Auto auto) {
-		redisClient.set(Arrays.asList(auto.getId().toString(), auto.toString()));
+		try{
+			Response res = redisClient.keys("*");
+			//autoincrementazione id
+			int id = 1;
+			if(res.size()>0){
+				id=res.size()+1;
+			}
+			auto.setId(id);
+			String json = gson.toJson(auto);
+			redisClient.set(Arrays.asList(id+"",json));
+		}
+		catch(Exception e){
+			LOGGER.error(e);
+		}
 	}
 
 
