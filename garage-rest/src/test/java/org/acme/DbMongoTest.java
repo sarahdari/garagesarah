@@ -31,13 +31,14 @@ class DbMongoTest {
 		garage = null
 		assertNull(garage);
 	}*/
-
+	// testa il metodo getGarage()
 	@Test
 	@Order(1)
 	public void getGarage() {
 		assertNotNull(garage);	
 	}
-
+	
+	//testa il metodo aggiungiAuto() e lo esegue per primo
 	@Test
 	@Order(1)
 	public void aggiungiAuto() {
@@ -45,7 +46,8 @@ class DbMongoTest {
 		garage.aggiungiAuto(auto);
 		assertNotNull(garage.getAuto(auto.getId()));
 	}
-
+	
+	// testa il metodo getAuto() e lo esegue per secondo
 	@Test
 	@Order(2)
 	public void getAuto() {
@@ -57,7 +59,8 @@ class DbMongoTest {
 		assertNotNull(garage.getAuto(auto.getId()).getModello());
 
 	}
-
+	
+	// testa il metodo modificaGarage() e lo esegue per terzo
 	@Test
 	@Order(3)
 	void testModificaGarage() {
@@ -69,7 +72,7 @@ class DbMongoTest {
 		assertEquals(autoNuova.getModello(), garage.getAuto(autoNuova.getId()).getModello());
 
 	}
-
+	//testa il metodo elimaAuto() e lo esegue per quarto
 	@Test
 	@Order(4)
 	public void eliminaAuto() {
@@ -79,7 +82,7 @@ class DbMongoTest {
 		assert (!garage.contains(auto));
 	}
 
-
+	//testa il metodo cercaColore() e lo esegue per quinto
 	@Test
 	@Order(5)
 	public void cercaColore() {
@@ -89,6 +92,7 @@ class DbMongoTest {
 
 	}
 	
+	//testa il metodo ricerca() e lo esegue per quinto
 	@Test
 	@Order(5)
 
